@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Curves, Waves, and Blobs</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@100;400;900&display=swap" rel="stylesheet" />
+
+    <script src="https://cdn.jsdelivr.net/npm/kute.js@2.1.2/dist/kute.min.js"></script>
+
+    <style>
+
+      #links-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;  
+      }
+
+      .external-link {
+        color: #000000;  
+        text-decoration: none;  
+        font-family: 'Prompt', sans-serif;
+      }
+
+      .external-link:hover {
+        text-decoration: underline;  
+      }
+
+      body {
+	      background-color: #B1D0E0;
+      }
+
+      .container {
+	      padding: 2rem;
+      }
+
+      .slider-wrapper {
+	      position: relative;
+	      max-width: 48rem;
+	      margin: 0 auto;
+      }
+
+      .slider {
+	      display: flex;
+	      aspect-ratio: 16 / 9;
+	      overflow-x: auto;
+	      scroll-snap-type: x mandatory;
+	      scroll-behavior: smooth;
+	      box-shadow: 0 1.5rem 3rem -0.75rem hsla(0, 0%, 0%, 0.25);
+	      border-radius: 0.5rem;
+	      -ms-overflow-style: none; 
+	      scrollbar-width: none; 
+      }
+
+
+      .slider img {
+	      flex: 1 0 100%;
+	      scroll-snap-align: start;
+	      object-fit: cover;
+      }
+
+      .slider-nav {
+	      display: flex;
+	      column-gap: 1rem;
+	      position: absolute;
+	      bottom: 1.25rem;
+	      left: 50%;
+	      transform: translateX(-50%);
+	      z-index: 1;
+      }
+
+      .slider-nav a {
+	      width: 0.5rem;
+	      height: 0.5rem;
+	      border-radius: 50%;
+	      background-color: #fff;
+	      opacity: 0.75;
+	      transition: opacity ease 250ms;
+      }
+
+      .slider-nav a:hover {
+	      opacity: 1;
+      }
+
+      .project-container {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-top: 20px;
+        margin-bottom: 20px; 
+      }
+
+      .project-box {
+        background-color: rgba(255, 255, 255, 0.05); 
+        border-radius: 15px; 
+        color: #000; 
+        padding: 20px;
+        width: 30%; 
+        text-align: left;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        margin: 10px;
+      }
+
+      .project-box h3 {
+        margin-top: 0;
+        margin-bottom: 10px; 
+      }
+
+        #section5 {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 300px;
+            padding-bottom: 0px;  
+        }
+
+        #section5 p {
+            padding: 10px;  
+            max-width: 80%; 
+        }
+
+        #section5 h1:first-of-type {
+            margin-bottom: 300px; 
+        }
+
+        #section5 h1:last-of-type {
+            margin-bottom: 10px; 
+        }
+
+        #section5 h1 {
+            margin: 0; 
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+      h1 {
+        font-size: 4rem;
+      }
+      p {
+        font-size: 1.5rem;
+      }
+      body {
+        margin: 0;
+        font-family: 'Prompt', sans-serif;
+        color: white;
+        background: #1A374D;
+        overflow-x: hidden;
+      }
+
+      section {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 400px;
+        padding-top: 100px;
+      }
+
+
+      .dark2 {
+        background: #1A374D;
+      }
+
+      .dark1 {
+        background: #406882;
+        overflow: hidden;
+      }
+
+      .light1 {
+        background: #6998AB;
+      }
+
+      .light2 {
+        background: #B1D0E0;
+      }
+
+      .white-text {
+        color: #FFFFFF;
+      }
+
+
+
+      .curve {
+        position: absolute;
+        height: 250px;
+        width: 100%;
+        bottom: 0;
+        text-align: center;
+      }
+
+      .curve::before {
+        content: '';
+        display: block;
+        position: absolute;
+        border-radius: 100% 50%;
+        width: 55%;
+        height: 100%;
+        transform: translate(85%, 60%);
+        background-color: #1A374D;
+      }
+
+      .curve::after {
+        content: '';
+        display: block;
+        position: absolute;
+        border-radius: 100% 50%;
+        width: 55%;
+        height: 100%;
+        background-color: #406882;
+        transform: translate(-4%, 40%);
+        z-index: -1;
+      }
+
+      .bubble::after {
+        content: '';
+        border-top-left-radius: 50% 100%;
+        border-top-right-radius: 50% 100%;
+        position: absolute;
+        bottom: 0;
+        z-index: -1;
+        width: 100%;
+        background-color: #1A374D;
+        height: 85%;
+      }
+
+      .wave {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+      }
+
+      .wave svg {
+        position: relative;
+        display: block;
+        width: calc(103% + 1.3px);
+        height: 200px;
+      }
+
+      .wave .shape-fill {
+        fill: #1A374D;
+      }
+
+      .spacer {
+        aspect-ratio: 960/300;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        margin: 0;
+        padding: 0;
+      }
+
+      .layer1 {
+        background-image: url('./layer1.svg');
+      }
+      .layer2 {
+        background-image: url('./layer2.svg');
+      }
+
+      .layer3 {
+        background-image: url('./layer3.svg')
+      }
+
+      .flip {
+        transform: rotate(180deg);
+      }
+
+      .blob-motion {
+        position: absolute;
+        transform: translateY(-20%);
+        z-index: 0;
+      }
+
+      .blob-content {
+        z-index: 1;
+      }
+
+      .blobs {
+        /* replace this blob with the wave & u can get the thing that u wanted before*/
+        width: 100%;
+        background: url('./wave1.svg') no-repeat bottom / cover;
+      }
+
+      
+
+      nav {
+        overflow: hidden;
+        background-color:#1A374D;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            float: left;
+        }
+
+        nav a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #B1D0E0;
+            color: black;
+        }
+
+    </style>
+  </head>
+  <body>
+    <nav>
+        <ul>
+            <li><a href="#section5">Home</a></li>
+            <li><a href="#section6">About</a></li>
+            <li><a href="#section7">Past Events</a></li>
+            <li><a href="#section8">Learn More</a></li>
+        </ul>
+    </nav>
+
+    <section class="light1" id = "section5">
+      <h1>Interact Rotary Club of Aurora Newmarket!</h1>
+
+      <h1>About Us!</h1>
+      <p>We're a youth community service club and affiliate of Rotary International, a non-political and non-religious service organization. Rotary International’s mission is to bring together business, professional, and community leaders to provide humanitarian service and advance peace around the world.
+
+
+      <div class="wave">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path
+            d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+            class="shape-fill"
+          ></path>
+        </svg>
+      </div>
+    </section>
+
+    <div class="spacer layer1"></div>
+
+    <section id = "section6">
+        <h1>Our Projects!</h1>
+        <div class="project-container">
+          <div class="project-box">
+            <h2 class = "white-text">Gift Card Raffle</h2>
+            <p class = "white-text">We raised $750+ for Inn From The Cold, a homeless shelter in Newmarket. Interact also runs an annual community meal there which feeds over 75 people.</p>
+          </div>
+          <div class="project-box">
+            <h2 class = "white-text">Annual Food Bank</h2>
+            <p class = "white-text">We run annual food, book, and clothing drives in local schools that are donated to the Aurora Food Pantry, Aurora Public Library, and Kidney Clothes Organization!</p>
+          </div>
+          <div class="project-box">
+            <h2 class = "white-text">Winterfest</h2>
+            <p class = "white-text">Interact Rotary runs an arts and crafts booth at Winterfest, recycling initiative during Ribfest, and march in the Santa Claus Parade!</p>
+          </div>
+        </div>
+    </p>
+    </section>
+
+    <div class="spacer layer2"></div>
+
+    <section class="light2" id = "section7">
+      <div class="blob-content">
+        <h1>Past Events!</h1>
+        <p>Here are some of our past events!</p>
+      </div>
+      <svg
+        class="blob-motion"
+        id="visual"
+        viewBox="0 0 960 540"
+        width="960"
+        height="540"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        version="1.1"
+      >
+        <g transform="translate(450.7256843113689 283.4942824330989)">
+          <path
+            id="blob1"
+            d="M148.7 -134.9C193.7 -103.7 231.9 -51.9 232.4 0.6C233 53 196.1 106.1 151.1 128.6C106.1 151.1 53 143 -4.4 147.4C-61.8 151.8 -123.5 168.5 -151.2 146C-178.8 123.5 -172.4 61.8 -172.8 -0.4C-173.1 -62.5 -180.3 -124.9 -152.6 -156.1C-124.9 -187.3 -62.5 -187.1 -5.3 -181.8C51.9 -176.5 103.7 -166 148.7 -134.9"
+            fill="#1A374D"
+          ></path>
+        </g>
+        <g transform="translate(509.54377535978017 281.49390864595887)" style="visibility: hidden">
+          <path
+            id="blob2"
+            d="M115.4 -137.9C137.9 -92.9 136.4 -46.4 133.6 -2.8C130.8 40.8 126.6 81.6 104.1 118.4C81.6 155.2 40.8 188.1 -8.4 196.5C-57.5 204.8 -115 188.7 -151 151.9C-187 115 -201.5 57.5 -190.8 10.7C-180.1 -36.1 -144.1 -72.1 -108.1 -117.1C-72.1 -162.1 -36.1 -216.1 5.2 -221.2C46.4 -226.4 92.9 -182.9 115.4 -137.9"
+            fill="#1A374D"
+          ></path>
+        </g>
+      </svg>
+      <script>
+        const tween = KUTE.fromTo(
+          '#blob1',
+          { path: '#blob1' },
+          { path: '#blob2' },
+          { repeat: 999, duration: 3000, yoyo: true }
+        ).start();
+      </script>
+    </section>
+
+    <div class="spacer layer3"></div>
+
+
+    <section class="container">
+      <div class="slider-wrapper">
+        <div class="slider">
+          <img id="slide-1" src="Images/Gallery 1.png" />
+          <img id="slide-2" src="Images/Gallery 2.png" />
+          <img id="slide-3" src="Images/Gallery 3.png" />
+          <img id="slide-4" src="Images/Gallery 4.png" />
+        </div>
+        <div class="slider-nav">
+          <a href="#slide-1"></a>
+          <a href="#slide-2"></a>
+          <a href="#slide-3"></a>
+          <a href="#slide-4"></a>
+        </div>
+      </div>
+    </section>
+    <section class="blobs" id = "section8">
+      <h1>Find out more!</h1>
+      <div class="project-container">
+        <div class="project-box">
+          <p> Socials </p>
+          <div id="links-container">
+            <a href="https://www.rotary.org/en" target="_blank" class="external-link">Rotary International</a>
+            <a href="https://www.facebook.com/rotary/" target="_blank" class="external-link">Facebook Page</a>
+            <a href="https://www.instagram.com/interactrotaryaurora/" target="_blank" class="external-link">Instagram</a>
+          </div>
+        </div>
+        <div class="project-box">
+          <p> Interested? Complete the form below and we'll be in touch!</p>
+          <a href="https://forms.gle/ggR6EnuRgW6WmvvUA" target="_blank" class = "external-link">Apply Here!</a>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
